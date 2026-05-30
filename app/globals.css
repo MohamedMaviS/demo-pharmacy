@@ -1,0 +1,194 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Light theme — editorial, airy. Page is a soft off-white so white cards float. */
+  --page: 244 248 246;      /* soft cool off-white page background */
+  --ink: 16 38 28;          /* headings: deep pharmacy green-ink */
+  --ink-soft: 30 41 49;     /* body text */
+  --ink-mute: 90 104 114;   /* muted text */
+  --surface: 255 255 255;   /* cards / panels (pure white, pops on page) */
+  --surface-soft: 238 250 243; /* soft green tint surfaces */
+  --surface-sunken: 244 247 246; /* inputs / image wells */
+  --line: 232 237 234;      /* hairline borders */
+  --dot: 21 128 61 / 0.05;  /* dot grid */
+}
+
+.dark {
+  /* Dark theme — calm slate with the same brand accents. */
+  --page: 7 12 22;          /* near-black page */
+  --ink: 226 232 240;       /* slate-200 */
+  --ink-soft: 203 213 225;  /* slate-300 */
+  --ink-mute: 148 163 184;  /* slate-400 */
+  --surface: 17 24 39;      /* slate-900-ish card */
+  --surface-soft: 6 46 33;  /* dark green tint */
+  --surface-sunken: 30 41 59; /* slate-800 well */
+  --line: 39 51 71;         /* subtle dark border */
+  --dot: 148 163 184 / 0.05;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(var(--page));
+  color: rgb(var(--ink-soft));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  /* Subtle dot grid backdrop on every page */
+  background-image: radial-gradient(circle at 1px 1px, rgb(var(--dot)) 1px, transparent 0);
+  background-size: 30px 30px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+/* Visible focus rings for keyboard navigation */
+@layer base {
+  :focus-visible {
+    outline: 3px solid #0369A1;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .mesh-blob {
+    animation: none !important;
+  }
+}
+
+/* No scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Line clamp */
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Skeleton */
+.skeleton {
+  background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 50%, #f1f5f9 100%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.4s ease-in-out infinite;
+}
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ============= ANIMATED GRADIENT MESH ============= */
+.mesh-blob {
+  animation: meshFloat 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes meshFloat {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(40px, -30px) scale(1.08);
+  }
+  66% {
+    transform: translate(-30px, 40px) scale(0.95);
+  }
+}
+
+/* ============= CONFETTI ============= */
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-10px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(105vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* ============= PRODUCT MARQUEE ============= */
+@keyframes marqueeX {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Translate by half because the list is duplicated */
+    transform: translateX(-50%);
+  }
+}
+
+/* Auto-dismiss countdown bar for the notification toasts */
+@keyframes barShrink {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/* RTL adjustment for marquee (already moves visually right with translateX(-50%) in RTL) */
+[dir='rtl'] .marquee-track {
+  direction: ltr;
+}
+
+/* ============= TOUCH TARGETS ============= */
+@media (hover: none) and (pointer: coarse) {
+  button,
+  a[role='button'],
+  [aria-label] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* ============= SELECTION ============= */
+::selection {
+  background: #BBF7D0;
+  color: #14532D;
+}
+
+/* ============= UTILITY: section divider with soft gradient ============= */
+.section-fade-top {
+  position: relative;
+}
+.section-fade-top::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), white);
+  pointer-events: none;
+}

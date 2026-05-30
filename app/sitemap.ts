@@ -1,0 +1,30 @@
+import type { MetadataRoute } from 'next';
+import { COLLECTIONS, PRODUCTS, SITE } from '@/lib/data';
+
+export const dynamic = 'force-static';
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const base = SITE.url.replace(/\/$/, '');
+
+  const staticRoutes = ['', '/search', '/cart', '/wishlist', '/account', '/pages/branchs', '/pages/careers'].map(
+    (path) => ({
+      url: `${base}${path}`,
+      changeFrequency: 'weekly' as const,
+      priority: path === '' ? 1 : 0.6,
+    }),
+  );
+
+  const collectionRoutes = COLLECTIONS.map((c) => ({
+    url: `${base}/collections/${c.handle}`,
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
+  const productRoutes = PRODUCTS.map((p) => ({
+    url: `${base}/products/${p.handle}`,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...collectionRoutes, ...productRoutes];
+}

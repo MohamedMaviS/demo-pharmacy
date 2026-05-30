@@ -1,0 +1,19 @@
+node_modules
+.next
+out
+build
+dist
+.env*.local
+.DS_Store
+*.log
+.vercel
+next-env.d.ts
+
+.vercel
+
+# archives & backups
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
