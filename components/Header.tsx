@@ -9,7 +9,7 @@ import {
   Search,
   ShoppingBag,
   User,
-  MessageCircle,
+  FileText,
 } from 'lucide-react';
 
 import { MAIN_MENU, PRODUCTS, SITE } from '@/lib/data';
@@ -65,7 +65,7 @@ export default function Header() {
               ابحث في المتجر
             </label>
             <div className="flex items-center gap-2 rounded-full border border-line bg-surface-sunken px-4 py-2.5 transition-colors duration-200 focus-within:border-trust focus-within:bg-surface">
-              <Search size={18} className="text-gray-400" aria-hidden="true" />
+              <Search size={18} className="text-ink-mute" aria-hidden="true" />
               <input
                 id="header-search"
                 value={query}
@@ -76,7 +76,7 @@ export default function Header() {
                 onFocus={() => setShowResults(true)}
                 onBlur={() => setTimeout(() => setShowResults(false), 150)}
                 placeholder="ابحث عن منتج، علامة، أو فئة..."
-                className="w-full bg-transparent text-sm outline-none placeholder:text-gray-400"
+                className="w-full bg-transparent text-sm outline-none placeholder:text-ink-mute"
               />
             </div>
             {showResults && results.length > 0 && (
@@ -165,13 +165,13 @@ export default function Header() {
             ابحث
           </label>
           <div className="flex items-center gap-2 rounded-full border border-line bg-surface-sunken px-4 py-2.5 focus-within:border-trust focus-within:bg-surface">
-            <Search size={18} className="text-gray-400" aria-hidden="true" />
+            <Search size={18} className="text-ink-mute" aria-hidden="true" />
             <input
               id="mobile-search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="ابحث في صيدلية ديمو..."
-              className="w-full bg-transparent text-sm outline-none placeholder:text-gray-400"
+              className="w-full bg-transparent text-sm outline-none placeholder:text-ink-mute"
             />
           </div>
         </div>
@@ -216,20 +216,11 @@ export default function Header() {
               </Link>
               <Link
                 href="/prescription"
-                className="my-2 cursor-pointer rounded-full bg-brand px-4 py-1.5 text-sm font-bold text-white transition-colors duration-200 hover:bg-brand-700"
+                className="my-2 flex min-h-[40px] cursor-pointer items-center gap-2 rounded-full bg-brand px-4 py-1.5 text-sm font-bold text-white transition-colors duration-200 hover:bg-brand-700"
               >
+                <FileText size={15} aria-hidden="true" />
                 ارفع روشتتك
               </Link>
-              <a
-                href={SITE.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="my-2 flex min-h-[44px] cursor-pointer items-center gap-2 rounded-full bg-gradient-to-l from-green-500 to-green-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:from-green-600 hover:to-green-700 hover:shadow-md"
-                aria-label="رفع روشتة عبر الواتساب"
-              >
-                <MessageCircle size={16} aria-hidden="true" />
-                ارفع روشتتك
-              </a>
             </div>
           </div>
 

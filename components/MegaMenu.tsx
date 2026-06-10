@@ -93,7 +93,7 @@ export default function MegaMenu({
                   <div className="mt-1 text-sm font-bold text-trust">
                     {formatPrice(p.price)}
                     {onSale && p.compareAt && (
-                      <span className="mr-1.5 text-[10px] font-normal text-gray-400 line-through">
+                      <span className="mr-1.5 text-[10px] font-normal text-ink-mute line-through">
                         {formatPrice(p.compareAt)}
                       </span>
                     )}

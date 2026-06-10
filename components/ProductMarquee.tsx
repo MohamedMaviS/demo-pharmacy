@@ -165,7 +165,7 @@ function MarqueeCard({ product }: { product: Product }) {
             {formatPrice(product.price)}
           </span>
           {onSale && product.compareAt && (
-            <span className="text-[10px] text-gray-400 line-through">
+            <span className="text-[10px] text-ink-mute line-through">
               {formatPrice(product.compareAt)}
             </span>
           )}

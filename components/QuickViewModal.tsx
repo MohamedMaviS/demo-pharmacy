@@ -124,7 +124,7 @@ export default function QuickViewModal() {
                       {formatPrice(product.price)}
                     </span>
                     {onSale && product.compareAt && (
-                      <span className="text-base text-gray-400 line-through">
+                      <span className="text-base text-ink-mute line-through">
                         {formatPrice(product.compareAt)}
                       </span>
                     )}

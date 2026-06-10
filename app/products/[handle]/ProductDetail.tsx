@@ -122,7 +122,7 @@ export default function ProductDetail({ product, related }: Props) {
               {formatPrice(product.price)}
             </span>
             {onSale && product.compareAt && (
-              <span className="text-lg text-gray-400 line-through">
+              <span className="text-lg text-ink-mute line-through">
                 {formatPrice(product.compareAt)}
               </span>
             )}

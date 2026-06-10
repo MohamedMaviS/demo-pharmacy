@@ -59,7 +59,7 @@ export default function ProductCard({ product, className }: Props) {
         style={{ transform: 'translateZ(34px)' }}
         className={cn(
           'absolute left-2.5 top-2.5 z-10 grid h-10 w-10 cursor-pointer place-items-center rounded-full bg-surface/95 shadow-sm ring-1 ring-black/5 transition-colors duration-200',
-          wished ? 'text-accent-600' : 'text-gray-400 hover:text-accent-600',
+          wished ? 'text-accent-600' : 'text-ink-mute hover:text-accent-600',
         )}
       >
         <Heart size={17} fill={wished ? 'currentColor' : 'none'} aria-hidden="true" />
@@ -142,7 +142,7 @@ export default function ProductCard({ product, className }: Props) {
             {formatPrice(product.price)}
           </span>
           {onSale && product.compareAt && (
-            <span className="text-xs text-gray-400 line-through">
+            <span className="text-xs text-ink-mute line-through">
               {formatPrice(product.compareAt)}
             </span>
           )}
