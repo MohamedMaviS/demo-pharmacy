@@ -10,6 +10,7 @@ import {
   ShoppingBag,
   User,
   FileText,
+  LayoutGrid,
 } from 'lucide-react';
 
 import { MAIN_MENU, PRODUCTS, SITE } from '@/lib/data';
@@ -183,8 +184,21 @@ export default function Header() {
           onMouseLeave={() => setActiveMenu(null)}
         >
           <div className="mx-auto flex max-w-7xl items-center gap-1 px-4">
-            <div className="flex flex-1 items-center gap-1 overflow-x-auto no-scrollbar">
-              {MAIN_MENU.map((item) => {
+            {/*
+              Only the top 8 categories fit comfortably alongside the service
+              links; the rest are reachable via "كل الأقسام" + the mega menu.
+              Edge-fade mask signals overflow instead of clipping a word.
+            */}
+            <div
+              className="flex flex-1 items-center gap-1 overflow-x-auto no-scrollbar"
+              style={{
+                maskImage:
+                  'linear-gradient(to right, transparent, black 2%, black 98%, transparent)',
+                WebkitMaskImage:
+                  'linear-gradient(to right, transparent, black 2%, black 98%, transparent)',
+              }}
+            >
+              {MAIN_MENU.slice(0, 8).map((item) => {
                 const handle = item.href.replace('/collections/', '');
                 return (
                   <Link
@@ -200,8 +214,19 @@ export default function Header() {
                   </Link>
                 );
               })}
+              <Link
+                href="/search"
+                onMouseEnter={() => setActiveMenu(null)}
+                className="flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-md px-3 py-3 text-sm font-bold text-brand transition-colors duration-200 hover:bg-surface-soft"
+              >
+                <LayoutGrid size={15} aria-hidden="true" />
+                كل الأقسام
+              </Link>
             </div>
-            <div className="flex shrink-0 items-center gap-1 pr-3">
+
+            <span aria-hidden="true" className="mx-1 h-5 w-px shrink-0 bg-line" />
+
+            <div className="flex shrink-0 items-center gap-1 pr-2">
               <Link
                 href="/track"
                 className="cursor-pointer rounded-md px-3 py-3 text-sm font-medium text-ink-soft transition-colors duration-200 hover:bg-surface-soft hover:text-brand"
