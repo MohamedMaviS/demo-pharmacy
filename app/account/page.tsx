@@ -21,6 +21,8 @@ import {
   Mail,
   Headset,
   BadgeCheck,
+  Sparkles,
+  Calendar,
 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -83,38 +85,54 @@ export default function AccountPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
       {/* Profile cover hero */}
-      <div className="overflow-hidden rounded-3xl border border-line bg-surface shadow-card">
-        <div className="relative h-28 bg-gradient-to-l from-brand-600 via-emerald-600 to-teal-600 sm:h-32">
+      <div className="overflow-hidden rounded-3xl border border-line bg-surface shadow-cardHover">
+        {/* Cover */}
+        <div className="relative h-32 bg-gradient-to-br from-brand-700 via-emerald-700 to-teal-600 sm:h-40">
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent" />
-            <div className="absolute -right-8 -top-10 h-40 w-40 rounded-full bg-white/15 blur-2xl" />
-            <div className="absolute -bottom-12 left-1/4 h-40 w-40 rounded-full bg-black/10 blur-3xl" />
-            <div className="absolute right-8 top-6 h-16 w-16 rounded-full border border-white/20" />
-            <div className="absolute left-10 bottom-4 h-10 w-10 rounded-full border border-white/15" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-white/15" />
+            <div
+              className="absolute inset-0 opacity-[0.14]"
+              style={{ backgroundImage: 'radial-gradient(rgba(255,255,255,0.7) 1px, transparent 1px)', backgroundSize: '16px 16px' }}
+            />
+            <div className="absolute -right-12 -top-14 h-48 w-48 rounded-full bg-white/15 blur-2xl" />
+            <div className="absolute -bottom-16 left-1/4 h-48 w-48 rounded-full bg-black/10 blur-3xl" />
+            <Plus className="absolute left-6 top-1/2 -translate-y-1/2 text-white/10" size={120} strokeWidth={3} aria-hidden="true" />
+            <div className="absolute right-12 top-8 h-20 w-20 rounded-full border border-white/15" />
           </div>
+          <span className="absolute right-5 top-5 z-10 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[11px] font-bold text-white ring-1 ring-white/25 backdrop-blur-sm">
+            <Sparkles size={12} aria-hidden="true" /> عضوية ديمو
+          </span>
         </div>
 
-        <div className="px-5 pb-5 sm:px-6">
+        {/* Profile row */}
+        <div className="px-5 pb-5 sm:px-7">
           <div className="flex flex-wrap items-end gap-4">
-            <span className="-mt-11 grid h-[5.5rem] w-[5.5rem] shrink-0 place-items-center rounded-3xl bg-gradient-to-br from-brand-500 to-brand-700 text-3xl font-black text-white shadow-soft ring-4 ring-surface">
-              ض
-            </span>
+            <div className="relative -mt-12 shrink-0">
+              <span className="grid h-[5.5rem] w-[5.5rem] place-items-center rounded-[1.6rem] bg-gradient-to-br from-brand-500 to-brand-700 text-3xl font-black text-white shadow-[0_16px_32px_-10px_rgb(34_197_94/0.6)] ring-4 ring-surface">
+                ض
+              </span>
+              <span className="absolute -bottom-1 -left-1 grid h-7 w-7 place-items-center rounded-full bg-trust text-white ring-4 ring-surface" title="موثّق">
+                <BadgeCheck size={14} aria-hidden="true" />
+              </span>
+            </div>
+
             <div className="min-w-0 flex-1 pt-1">
               <div className="flex flex-wrap items-center gap-2">
                 <h1 className="font-display text-xl font-black text-ink sm:text-2xl">أهلاً بيك، ضيف</h1>
-                <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2.5 py-0.5 text-[11px] font-bold text-brand-700 ring-1 ring-brand-100 dark:bg-brand-500/15 dark:text-brand-300 dark:ring-white/10">
+                <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-l from-brand-50 to-emerald-50 px-2.5 py-0.5 text-[11px] font-bold text-brand-700 ring-1 ring-brand-100 dark:from-brand-500/15 dark:to-brand-500/10 dark:text-brand-300 dark:ring-white/10">
                   <BadgeCheck size={12} aria-hidden="true" /> حساب موثّق
                 </span>
               </div>
-              <p className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-sm text-ink-mute">
-                <span>عضو منذ يناير ٢٠٢٥</span>
-                <span className="hidden sm:inline">·</span>
+              <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-sm text-ink-mute">
+                <span className="inline-flex items-center gap-1"><Calendar size={13} aria-hidden="true" /> عضو منذ يناير ٢٠٢٥</span>
+                <span className="hidden h-3 w-px bg-line sm:inline-block" aria-hidden="true" />
                 <span className="inline-flex items-center gap-1"><Mail size={13} aria-hidden="true" /> {SITE.email}</span>
               </p>
             </div>
+
             <Link
-              href="/checkout"
-              className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-sm font-bold text-ink-soft shadow-card transition-colors hover:border-brand hover:text-brand"
+              href="/track"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-l from-brand-500 to-brand-700 px-5 py-2.5 text-sm font-bold text-white shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-cardHover hover:brightness-105"
             >
               <Truck size={15} aria-hidden="true" /> تتبّع شحنة
             </Link>

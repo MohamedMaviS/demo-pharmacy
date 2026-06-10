@@ -21,7 +21,8 @@ export default function NewsletterPopup() {
       seen = false;
     }
     if (seen) return;
-    const id = setTimeout(() => setOpen(true), 14000);
+    // Late enough that it never stacks on top of the first notification toast.
+    const id = setTimeout(() => setOpen(true), 30000);
     return () => clearTimeout(id);
   }, []);
 

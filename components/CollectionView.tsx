@@ -25,6 +25,8 @@ const SORT_OPTIONS: { key: SortKey; label: string }[] = [
   { key: 'newest', label: 'الأحدث' },
 ];
 
+const PAGE_SIZE = 12;
+
 type Props = {
   products: Product[];
   collectionTitle: string;
@@ -74,6 +76,12 @@ export default function CollectionView({ products, collectionTitle }: Props) {
   );
   const [onSaleOnly, setOnSaleOnly] = useState<boolean>(initialOnSaleOnly);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [visible, setVisible] = useState(PAGE_SIZE);
+
+  // Reset the visible count whenever the filters change.
+  useEffect(() => {
+    setVisible(PAGE_SIZE);
+  }, [selectedBrands, sort, minPrice, maxPrice, onSaleOnly]);
 
   // Sync URL when filters change (debounced via effect)
   useEffect(() => {
@@ -270,22 +278,50 @@ export default function CollectionView({ products, collectionTitle }: Props) {
             </div>
           ) : (
             <>
-              <div className="mb-3 flex items-center justify-between text-xs text-ink-mute lg:hidden">
-                <span aria-live="polite">{filtered.length} منتج</span>
-                {hasActiveFilters && (
+              {/* Active filter chips */}
+              {hasActiveFilters && (
+                <div className="mb-4 flex flex-wrap items-center gap-2">
+                  {selectedBrands.map((b) => (
+                    <FilterChip key={b} onRemove={() => toggleBrand(b)}>{b}</FilterChip>
+                  ))}
+                  {onSaleOnly && (
+                    <FilterChip onRemove={() => setOnSaleOnly(false)}>العروض فقط</FilterChip>
+                  )}
+                  {(minPrice > priceRange.min || maxPrice < priceRange.max) && (
+                    <FilterChip onRemove={() => { setMinPrice(priceRange.min); setMaxPrice(priceRange.max); }}>
+                      {formatPrice(minPrice)} - {formatPrice(maxPrice)}
+                    </FilterChip>
+                  )}
                   <button
                     onClick={clearAll}
-                    className="cursor-pointer text-trust underline hover:text-trust-800"
+                    className="cursor-pointer text-xs font-bold text-trust underline transition-colors hover:text-trust-800"
                   >
-                    مسح الفلاتر
+                    مسح الكل
                   </button>
-                )}
+                </div>
+              )}
+
+              <div className="mb-3 text-xs text-ink-mute lg:hidden">
+                <span aria-live="polite">{filtered.length} منتج</span>
               </div>
+
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
-                {filtered.map((p) => (
+                {filtered.slice(0, visible).map((p) => (
                   <ProductCard key={p.handle} product={p} />
                 ))}
               </div>
+
+              {visible < filtered.length && (
+                <div className="mt-8 flex flex-col items-center gap-2">
+                  <button
+                    onClick={() => setVisible((v) => v + PAGE_SIZE)}
+                    className="cursor-pointer rounded-full border border-line bg-surface px-7 py-3 text-sm font-bold text-ink-soft shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:border-brand hover:text-brand"
+                  >
+                    تحميل المزيد ({filtered.length - visible})
+                  </button>
+                  <span className="text-xs text-ink-mute">عرض {visible} من {filtered.length}</span>
+                </div>
+              )}
             </>
           )}
         </div>
@@ -525,5 +561,20 @@ function SortDropdown({
         </>
       )}
     </div>
+  );
+}
+
+function FilterChip({ children, onRemove }: { children: React.ReactNode; onRemove: () => void }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700 dark:border-brand-500/30 dark:bg-brand-500/10 dark:text-brand-300">
+      {children}
+      <button
+        onClick={onRemove}
+        aria-label="إزالة الفلتر"
+        className="grid h-4 w-4 cursor-pointer place-items-center rounded-full text-brand-700/70 transition-colors hover:bg-brand-200/60 hover:text-brand-900 dark:text-brand-300"
+      >
+        <X size={11} aria-hidden="true" />
+      </button>
+    </span>
   );
 }

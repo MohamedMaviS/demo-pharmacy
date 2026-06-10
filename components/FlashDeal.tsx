@@ -35,7 +35,7 @@ function useCountdown() {
 function FlipDigit({ value, label }: { value: string; label: string }) {
   return (
     <div className="flex flex-col items-center gap-1">
-      <div className="relative h-11 w-11 overflow-hidden rounded-xl bg-white/15 ring-1 ring-white/25 backdrop-blur-sm sm:h-12 sm:w-12">
+      <div className="relative h-11 w-11 overflow-hidden rounded-xl bg-accent-600 text-white shadow-sm sm:h-12 sm:w-12">
         <AnimatePresence initial={false}>
           <motion.span
             key={value}
@@ -49,7 +49,7 @@ function FlipDigit({ value, label }: { value: string; label: string }) {
           </motion.span>
         </AnimatePresence>
       </div>
-      <span className="text-[9px] font-medium text-white/70">{label}</span>
+      <span className="text-[9px] font-medium text-ink-mute">{label}</span>
     </div>
   );
 }
@@ -63,52 +63,39 @@ export default function FlashDeal() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-8" aria-label="عرض اليوم">
       <div className="overflow-hidden rounded-[2rem] border border-line bg-surface shadow-card">
-        {/* Header */}
-        <div className="relative flex flex-wrap items-center justify-between gap-4 overflow-hidden bg-gradient-to-l from-rose-600 via-red-600 to-orange-600 p-5 text-white sm:p-6">
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-0 bg-gradient-to-b from-white/12 to-transparent" />
-            <motion.div
-              className="absolute -right-10 -top-12 h-44 w-44 rounded-full bg-white/15 blur-2xl"
-              animate={reduce ? undefined : { x: [0, 22, 0], y: [0, 14, 0] }}
-              transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-            />
-          </div>
-
-          <div className="relative z-10 flex items-center gap-3">
-            <motion.span
-              className="grid h-12 w-12 place-items-center rounded-2xl bg-white/15 ring-1 ring-white/30"
-              animate={reduce ? undefined : { rotate: [-8, 8, -8], scale: [1, 1.08, 1] }}
-              transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-            >
+        {/* Header — clean card row; red stays only as the functional deal accent */}
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-line p-5 sm:px-6">
+          <div className="flex items-center gap-3">
+            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-accent-600 text-white shadow-sm">
               <Flame size={24} aria-hidden="true" />
-            </motion.span>
+            </span>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="font-display text-xl font-black sm:text-2xl">عرض اليوم</h2>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-bold ring-1 ring-white/25">
+                <h2 className="font-display text-xl font-black text-ink sm:text-2xl">عرض اليوم</h2>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-accent-50 px-2 py-0.5 text-[10px] font-bold text-accent-700 dark:bg-accent-500/10">
                   <span className="relative grid h-2 w-2 place-items-center">
-                    {!reduce && <span className="absolute h-2 w-2 animate-ping rounded-full bg-white/80" />}
-                    <span className="h-1.5 w-1.5 rounded-full bg-white" />
+                    {!reduce && <span className="absolute h-2 w-2 animate-ping rounded-full bg-accent-500/70" />}
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent-600" />
                   </span>
                   مباشر
                 </span>
               </div>
-              <p className="text-xs text-white/85">خصومات لفترة محدودة تنتهي مع نهاية اليوم</p>
+              <p className="text-xs text-ink-mute">خصومات لفترة محدودة تنتهي مع نهاية اليوم</p>
             </div>
           </div>
 
-          <div className="relative z-10 flex items-center gap-2">
-            <span className="hidden text-xs font-semibold text-white/85 sm:inline">ينتهي خلال</span>
+          <div className="flex items-center gap-2">
+            <span className="hidden text-xs font-semibold text-ink-mute sm:inline">ينتهي خلال</span>
             {t ? (
               <div className="flex items-center gap-1.5">
                 <FlipDigit value={t.h} label="ساعة" />
-                <span className="-mt-3 font-display text-lg font-black">:</span>
+                <span className="-mt-3 font-display text-lg font-black text-ink">:</span>
                 <FlipDigit value={t.m} label="دقيقة" />
-                <span className="-mt-3 font-display text-lg font-black">:</span>
+                <span className="-mt-3 font-display text-lg font-black text-ink">:</span>
                 <FlipDigit value={t.s} label="ثانية" />
               </div>
             ) : (
-              <div className="h-12 w-40 rounded-xl bg-white/15" />
+              <div className="h-12 w-40 rounded-xl bg-surface-sunken" />
             )}
           </div>
         </div>
@@ -157,7 +144,7 @@ function DealCard({ product }: { product: Product }) {
         {pct > 0 && (
           <span
             style={{ transform: 'translateZ(45px)' }}
-            className="absolute right-3.5 top-3.5 rounded-full bg-gradient-to-br from-rose-500 to-red-600 px-2 py-0.5 text-[10px] font-black text-white shadow-lg"
+            className="absolute right-3.5 top-3.5 rounded-full bg-accent-600 px-2 py-0.5 text-[10px] font-black text-white shadow-sm"
           >
             -{pct}%
           </span>

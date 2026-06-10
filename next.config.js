@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: 'nourpharmacies.com',
         pathname: '/cdn/shop/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.shopify.com',
+        pathname: '/s/files/**',
+      },
     ],
   },
 };

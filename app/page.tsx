@@ -1,3 +1,6 @@
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
+
 import HeroBannerSlider from '@/components/HeroBannerSlider';
 import CircleCategories from '@/components/CircleCategories';
 import PromoBanners from '@/components/PromoBanners';
@@ -6,17 +9,13 @@ import FlashDeal from '@/components/FlashDeal';
 import CollectionRow from '@/components/CollectionRow';
 import ProductMarquee from '@/components/ProductMarquee';
 import Reveal from '@/components/Reveal';
-import {
-  COLLECTIONS,
-  getOnSaleProducts,
-  getProductsByCollection,
-  PRODUCTS,
-} from '@/lib/data';
+import { COLLECTIONS, getProductsByCollection, PRODUCTS } from '@/lib/data';
 
 export default function HomePage() {
-  const saleProducts = getOnSaleProducts();
-  const featured = PRODUCTS.slice(0, 14);
   const fresh = PRODUCTS.slice(-12).reverse();
+  // A trimmed set of featured collections (full list stays reachable via the
+  // category circles + menu) to keep the home page focused, not endless.
+  const featuredCollections = COLLECTIONS.slice(0, 6);
 
   return (
     <>
@@ -32,17 +31,7 @@ export default function HomePage() {
         <FlashDeal />
       </Reveal>
 
-      <Reveal>
-        <ProductMarquee
-          products={saleProducts.length >= 6 ? saleProducts : featured}
-          eyebrow="العروض"
-          heading="الأكثر طلبًا اليوم"
-          subheading="منتجات مختارة بعروض محدودة"
-          speed="normal"
-        />
-      </Reveal>
-
-      {COLLECTIONS.slice(0, 3).map((collection) => (
+      {featuredCollections.slice(0, 4).map((collection) => (
         <Reveal key={collection.handle}>
           <CollectionRow
             collection={collection}
@@ -66,7 +55,7 @@ export default function HomePage() {
         />
       </Reveal>
 
-      {COLLECTIONS.slice(3).map((collection) => (
+      {featuredCollections.slice(4, 6).map((collection) => (
         <Reveal key={collection.handle}>
           <CollectionRow
             collection={collection}
@@ -74,6 +63,18 @@ export default function HomePage() {
           />
         </Reveal>
       ))}
+
+      <Reveal>
+        <section className="mx-auto max-w-7xl px-4 pb-4 pt-2 text-center">
+          <Link
+            href="/search"
+            className="group inline-flex items-center gap-2 rounded-full border border-line bg-surface px-7 py-3.5 text-sm font-bold text-ink-soft shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:border-brand hover:text-brand"
+          >
+            تصفّح كل الأقسام والمنتجات
+            <ArrowLeft size={16} aria-hidden="true" className="transition-transform duration-200 group-hover:-translate-x-0.5" />
+          </Link>
+        </section>
+      </Reveal>
     </>
   );
 }

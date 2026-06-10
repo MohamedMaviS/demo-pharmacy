@@ -13,8 +13,18 @@ const QUICK_LINKS = [
   { label: 'الرئيسية', href: '/' },
   { label: 'كل المنتجات', href: '/search' },
   { label: 'العروض', href: '/collections/sale' },
+  { label: 'ارفع روشتتك', href: '/prescription' },
+  { label: 'اسأل الصيدلي', href: '/ask-pharmacist' },
+  { label: 'تتبّع طلبك', href: '/track' },
+  { label: 'الأسئلة الشائعة', href: '/faq' },
   { label: 'فروعنا', href: '/pages/branchs' },
   { label: 'وظائف', href: '/pages/careers' },
+];
+
+const POLICY_LINKS = [
+  { label: 'سياسة الشحن', href: '/pages/shipping' },
+  { label: 'الاسترجاع والاستبدال', href: '/pages/returns' },
+  { label: 'سياسة الخصوصية', href: '/pages/privacy' },
 ];
 
 const CATEGORY_LINKS = [
@@ -195,6 +205,17 @@ export default function Footer() {
           </div>
 
           <div className="mx-auto mt-7 max-w-2xl border-t border-white/10 pt-4">
+            <nav aria-label="السياسات" className="mb-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+              {POLICY_LINKS.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className="cursor-pointer text-xs text-white/60 transition-colors duration-200 hover:text-white"
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </nav>
             <p className="text-center text-xs text-white/60">
               © 2026 صيدلية ديمو · نسخة ديمو للعرض فقط
             </p>

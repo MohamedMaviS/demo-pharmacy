@@ -57,31 +57,43 @@ export default function MobileMenu({ open, onClose }: Props) {
                 </Link>
               ))}
               <div className="my-2 h-px bg-surface-sunken" />
-              <Link
-                href="/pages/branchs"
-                onClick={onClose}
-                className="block min-h-[44px] cursor-pointer rounded-lg px-3 py-3 text-base font-medium text-ink-soft transition-colors duration-200 hover:bg-surface-soft hover:text-brand"
-              >
-                Branches
-              </Link>
-              <Link
-                href="/pages/careers"
-                onClick={onClose}
-                className="block min-h-[44px] cursor-pointer rounded-lg px-3 py-3 text-base font-medium text-ink-soft transition-colors duration-200 hover:bg-surface-soft hover:text-brand"
-              >
-                Careers
-              </Link>
+              <div className="px-3 pb-1 pt-2 text-[11px] font-bold uppercase tracking-wider text-ink-mute">
+                خدماتنا
+              </div>
+              {[
+                { label: 'اسأل الصيدلي', href: '/ask-pharmacist' },
+                { label: 'تتبّع طلبك', href: '/track' },
+                { label: 'الأسئلة الشائعة', href: '/faq' },
+                { label: 'فروعنا', href: '/pages/branchs' },
+                { label: 'وظائف', href: '/pages/careers' },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={onClose}
+                  className="block min-h-[44px] cursor-pointer rounded-lg px-3 py-3 text-base font-medium text-ink-soft transition-colors duration-200 hover:bg-surface-soft hover:text-brand"
+                >
+                  {item.label}
+                </Link>
+              ))}
             </nav>
 
-            <div className="border-t border-line p-4">
+            <div className="space-y-2 border-t border-line p-4">
+              <Link
+                href="/prescription"
+                onClick={onClose}
+                className="flex min-h-[44px] w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-brand py-3 text-sm font-bold text-white transition-colors duration-200 hover:bg-brand-700"
+              >
+                ارفع روشتتك
+              </Link>
               <a
                 href={SITE.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex min-h-[44px] w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-green-500 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-green-600"
+                className="flex min-h-[44px] w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-line py-3 text-sm font-semibold text-ink-soft transition-colors duration-200 hover:border-brand hover:text-brand"
               >
                 <MessageCircle size={18} aria-hidden="true" />
-                Upload Your Prescription
+                تواصل واتساب
               </a>
             </div>
           </motion.aside>

@@ -114,7 +114,7 @@ export default function CheckoutPage() {
 
         <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
           <Link
-            href="/account"
+            href="/track"
             className="inline-block cursor-pointer rounded-full border border-line bg-surface px-6 py-3 text-sm font-bold text-ink-soft shadow-card transition-colors duration-200 hover:border-brand hover:text-brand"
           >
             تتبّع الطلب

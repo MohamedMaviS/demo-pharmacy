@@ -39,9 +39,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   transition: background-color 0.2s ease, color 0.2s ease;
-  /* Subtle dot grid backdrop on every page */
-  background-image: radial-gradient(circle at 1px 1px, rgb(var(--dot)) 1px, transparent 0);
-  background-size: 30px 30px;
 }
 
 * {
@@ -73,9 +70,6 @@ h1, h2, h3, h4 {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .mesh-blob {
-    animation: none !important;
-  }
 }
 
 /* No scrollbar utility */
@@ -104,24 +98,6 @@ h1, h2, h3, h4 {
 @keyframes skeletonShimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
-}
-
-/* ============= ANIMATED GRADIENT MESH ============= */
-.mesh-blob {
-  animation: meshFloat 22s ease-in-out infinite;
-  will-change: transform;
-}
-
-@keyframes meshFloat {
-  0%, 100% {
-    transform: translate(0px, 0px) scale(1);
-  }
-  33% {
-    transform: translate(40px, -30px) scale(1.08);
-  }
-  66% {
-    transform: translate(-30px, 40px) scale(0.95);
-  }
 }
 
 /* ============= CONFETTI ============= */

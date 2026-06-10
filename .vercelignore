@@ -1,0 +1,10 @@
+# Large local backups / archives — never upload to Vercel
+Demos S.zip
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
+
+# VCS + local
+.git

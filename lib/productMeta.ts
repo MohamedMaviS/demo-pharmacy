@@ -80,7 +80,8 @@ export function getReviews(handle: string, count = 4): Review[] {
     const h = hashString(`${handle}-${i}`);
     out.push({
       name: REVIEW_NAMES[(base + i * 5) % REVIEW_NAMES.length],
-      rating: 4 + ((h >> 2) % 2), // 4 or 5 stars
+      // weighted 3–5 stars (mostly 5/4) so star-filtering is meaningful
+      rating: [5, 5, 4, 5, 4, 3, 5, 4][h % 8],
       date: REVIEW_DATES[h % REVIEW_DATES.length],
       text: REVIEW_TEXTS[h % REVIEW_TEXTS.length],
       helpful: 2 + (h % 38),

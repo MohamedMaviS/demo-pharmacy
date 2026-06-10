@@ -203,16 +203,22 @@ export default function Header() {
             </div>
             <div className="flex shrink-0 items-center gap-1 pr-3">
               <Link
+                href="/track"
+                className="cursor-pointer rounded-md px-3 py-3 text-sm font-medium text-ink-soft transition-colors duration-200 hover:bg-surface-soft hover:text-brand"
+              >
+                تتبّع طلبك
+              </Link>
+              <Link
                 href="/pages/branchs"
                 className="cursor-pointer rounded-md px-3 py-3 text-sm font-medium text-ink-soft transition-colors duration-200 hover:bg-surface-soft hover:text-brand"
               >
                 فروعنا
               </Link>
               <Link
-                href="/pages/careers"
-                className="cursor-pointer rounded-md px-3 py-3 text-sm font-medium text-ink-soft transition-colors duration-200 hover:bg-surface-soft hover:text-brand"
+                href="/prescription"
+                className="my-2 cursor-pointer rounded-full bg-brand px-4 py-1.5 text-sm font-bold text-white transition-colors duration-200 hover:bg-brand-700"
               >
-                وظائف
+                ارفع روشتتك
               </Link>
               <a
                 href={SITE.whatsapp}

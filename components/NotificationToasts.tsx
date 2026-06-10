@@ -26,16 +26,20 @@ type Notif = {
   cta?: string;
 };
 
+// Calm pharmacy palette: brand green / trust blue, red only for offers.
 const NOTIFS: Notif[] = [
-  { Icon: Percent, tile: 'from-rose-500 to-rose-600', title: 'خصومات تصل ٦٧٪', msg: 'وفّر على مستحضرات العناية والأم والطفل', href: '/collections/mom-baby', cta: 'اكتشف العروض' },
-  { Icon: Truck, tile: 'from-emerald-500 to-teal-600', title: 'شحن مجاني', msg: 'لكل الطلبات فوق ٥٠٠ ج ولكل المحافظات' },
+  { Icon: Percent, tile: 'from-accent-500 to-accent-700', title: 'خصومات تصل ٦٧٪', msg: 'وفّر على مستحضرات العناية والأم والطفل', href: '/collections/mom-baby', cta: 'اكتشف العروض' },
+  { Icon: Truck, tile: 'from-brand-500 to-brand-700', title: 'شحن مجاني', msg: 'لكل الطلبات فوق ٥٠٠ ج ولكل المحافظات' },
   { Icon: ShieldCheck, tile: 'from-trust-500 to-trust-700', title: 'منتجات أصلية ١٠٠٪', msg: 'من موزّعين معتمدين وبضمان الجودة' },
-  { Icon: Tag, tile: 'from-violet-500 to-purple-600', title: 'كود خصم DEMO10', msg: 'استخدمه عند الدفع واحصل على خصم فوري', href: '/cart', cta: 'استخدم الكود' },
-  { Icon: FileText, tile: 'from-emerald-500 to-teal-600', title: 'عندك روشتة؟', msg: 'ارفعها وصيدلي معتمد هيراجعها ويوصّلك دواك', href: '/prescription', cta: 'ارفع روشتتك' },
-  { Icon: Sparkles, tile: 'from-pink-500 to-fuchsia-600', title: 'وصل حديثًا', msg: 'تشكيلة جديدة من الفيتامينات والعناية', href: '/collections/vitamins', cta: 'تسوّق الجديد' },
+  { Icon: Tag, tile: 'from-accent-500 to-accent-700', title: 'كود خصم DEMO10', msg: 'استخدمه عند الدفع واحصل على خصم فوري', href: '/cart', cta: 'استخدم الكود' },
+  { Icon: FileText, tile: 'from-brand-500 to-brand-700', title: 'عندك روشتة؟', msg: 'ارفعها وصيدلي معتمد هيراجعها ويوصّلك دواك', href: '/prescription', cta: 'ارفع روشتتك' },
+  { Icon: Sparkles, tile: 'from-trust-500 to-trust-700', title: 'وصل حديثًا', msg: 'تشكيلة جديدة من الفيتامينات والعناية', href: '/collections/vitamins', cta: 'تسوّق الجديد' },
   { Icon: HeartPulse, tile: 'from-brand-500 to-brand-700', title: 'اسأل الصيدلي', msg: 'استشارة مجانية عن أدويتك ومنتجاتك', href: '/ask-pharmacist', cta: 'ابدأ الاستشارة' },
-  { Icon: Clock, tile: 'from-sky-500 to-blue-600', title: 'توصيل سريع', msg: 'طلبك يوصلك خلال ١ إلى ٣ أيام عمل' },
+  { Icon: Clock, tile: 'from-trust-500 to-trust-700', title: 'توصيل سريع', msg: 'طلبك يوصلك خلال ١ إلى ٣ أيام عمل' },
 ];
+
+/** Stop nudging after a few appearances — calm, not nagging. */
+const MAX_SHOWS = 4;
 
 const FIRST_MS = 7000;
 const CYCLE_MS = 30000;
@@ -57,6 +61,7 @@ export default function NotificationToasts() {
     };
     const show = () => {
       if (pausedRef.current) return; // don't swap while the user is reading
+      if (iRef.current >= MAX_SHOWS) return; // calm: stop after a few nudges
       setCurrent(NOTIFS[iRef.current % NOTIFS.length]);
       iRef.current += 1;
       setOpen(true);

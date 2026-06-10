@@ -19,7 +19,6 @@ import BackToTop from '@/components/BackToTop';
 import NotificationToasts from '@/components/NotificationToasts';
 import NewsletterPopup from '@/components/NewsletterPopup';
 import TopProgress from '@/components/TopProgress';
-import ScrollProgress from '@/components/ScrollProgress';
 import { Analytics } from '@vercel/analytics/react';
 import { CartProvider } from '@/context/CartContext';
 import { WishlistProvider } from '@/context/WishlistContext';
@@ -77,7 +76,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen bg-page font-sans text-ink antialiased">
         <ThemeScript />
         <TopProgress />
-        <ScrollProgress />
         <CartProvider>
           <WishlistProvider>
             <RecentlyViewedProvider>
